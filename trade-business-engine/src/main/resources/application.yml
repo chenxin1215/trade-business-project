@@ -14,7 +14,7 @@ spring:
       max-lifetime: 3600000
 mybatis:
   mapper-locations:
-  - classpath:com/cx/blog/dao/*.xml
+    - classpath:com/cx/blog/dao/*.xml
   type-aliases-package: com.cx.blog.entity
 dubbo:
   application:
