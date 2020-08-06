@@ -1,0 +1,37 @@
+spring:
+  profiles:
+    # dev | product | test
+    active: dev
+  datasource:
+    name: ${database.dbname}
+    username: ${database.username}
+    password: ${database.password}
+    url: jdbc:mysql://${database.host}:${database.port}/${database.dbname}?characterEncoding=utf-8&useSSL=false
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      connection-timeout: 10000
+      idle-timeout: 600000
+      max-lifetime: 3600000
+mybatis:
+  mapper-locations:
+  - classpath:com/cx/blog/dao/*.xml
+  type-aliases-package: com.cx.blog.entity
+dubbo:
+  application:
+    id: business-engine-provider
+    name: business-engine-provider
+  protocol:
+    id: dubbo
+    name: dubbo
+    port: 22391
+    status: server
+  registry:
+    id: cx-registry
+  scan:
+    base-packages:
+      - com.cx.blog.service
+  consumer:
+    check: false
+    timeout: 5000
+    registry: -1
+

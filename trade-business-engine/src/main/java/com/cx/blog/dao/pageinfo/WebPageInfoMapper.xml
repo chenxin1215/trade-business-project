@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cx.blog.dao.pageinfo.WebPageInfoMapper">
+    <resultMap id="BaseResultMap" type="com.cx.blog.entity.pageinfo.WebPageInfo">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
+        <result column="motto" jdbcType="VARCHAR" property="motto"/>
+        <result column="index_info" jdbcType="VARCHAR" property="indexInfo"/>
+        <result column="bottom_motto" jdbcType="VARCHAR" property="bottomMotto"/>
+        <result column="person_info" jdbcType="VARCHAR" property="personInfo"/>
+        <result column="person_skills" jdbcType="VARCHAR" property="personSkills"/>
+        <result column="QQ" jdbcType="VARCHAR" property="qq"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    id, nick_name, motto, index_info, bottom_motto, person_info, person_skills, QQ, email, 
+    address, create_time, update_time
+  </sql>
+
+</mapper>

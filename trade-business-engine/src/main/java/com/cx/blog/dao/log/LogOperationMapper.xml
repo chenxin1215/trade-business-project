@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cx.blog.dao.log.LogOperationMapper">
+    <resultMap id="BaseResultMap" type="com.cx.blog.entity.log.LogOperation">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="operation_user_id" jdbcType="BIGINT" property="operationUserId"/>
+        <result column="operation_user_name" jdbcType="VARCHAR" property="operationUserName"/>
+        <result column="operating_time" jdbcType="TIMESTAMP" property="operatingTime"/>
+        <result column="operator_type" jdbcType="INTEGER" property="operatorType"/>
+        <result column="operation_content" jdbcType="VARCHAR" property="operationContent"/>
+        <result column="user_ip_address" jdbcType="VARCHAR" property="userIpAddress"/>
+        <result column="user_local_ip" jdbcType="VARCHAR" property="userLocalIp"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, operation_user_id, operation_user_name, operating_time, operator_type, operation_content,
+        user_ip_address, user_local_ip, create_time, update_time
+    </sql>
+
+</mapper>

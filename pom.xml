@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.cx.blog</groupId>
+    <artifactId>trade-business-project</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.0</version>
+
+    <name>Trade Business Project</name>
+    <description>底层服务-业务中心</description>
+
+    <modules>
+        <module>trade-business-engine</module>
+        <module>trade-business-engine-api</module>
+    </modules>
+
+    <organization>
+        <name>blog</name>
+        <url>https://chenxin1215.com/</url>
+    </organization>
+
+</project>
