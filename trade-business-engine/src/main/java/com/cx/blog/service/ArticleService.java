@@ -9,10 +9,10 @@ import com.cx.blog.dto.request.QueryArticleCondition;
 import com.cx.blog.dto.request.SaveArticleRequest;
 import com.cx.blog.dto.response.ArticleDetail;
 import com.cx.blog.entity.article.Article;
+import com.cx.utils.util.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
+import org.springframework.util.Assert;
 
 /**
  * <>
@@ -29,6 +29,18 @@ public class ArticleService implements IAPIArticleService {
     @Override
     public Long addArticle(SaveArticleRequest request) {
         // TODO 检查入参
+
+        String articleTitle = request.getArticleTitle();
+        String articleContent = request.getArticleContent();
+        Assert.notNull(articleTitle, "文章标题不能为空");
+        Assert.notNull(articleContent, "文章内容不能为空");
+
+        if (articleTitle.length() > 50) {
+            // throw new 字符长度过长
+        }
+        if (StringUtils.isSpecialChar(articleTitle)) {
+            // throw new 标题不能含有特殊字符
+        }
 
         Article addArticle = new Article();
         BeanUtils.copyProperties(request, addArticle);
@@ -70,16 +82,6 @@ public class ArticleService implements IAPIArticleService {
         // TODO
 
         return articleDetail;
-    }
-
-    @Override
-    public List<Article> queryArticleList(QueryArticleCondition condition) {
-
-        LambdaQueryWrapper<Article> queryWrapper = getArticleLambdaQueryWrapper(condition);
-
-        List<Article> articleList = articleMapper.selectList(queryWrapper);
-
-        return articleList;
     }
 
     @Override

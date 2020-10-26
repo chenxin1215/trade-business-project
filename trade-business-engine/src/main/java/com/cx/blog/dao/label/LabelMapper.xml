@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cx.blog.dao.article.RelArticleLabelMapper">
-    <resultMap id="BaseResultMap" type="com.cx.blog.entity.article.RelArticleLabel">
+<mapper namespace="com.cx.blog.dao.label.LabelMapper">
+    <resultMap id="BaseResultMap" type="com.cx.blog.entity.label.Label">
         <id column="id" jdbcType="BIGINT" property="id"/>
-        <result column="article_id" jdbcType="BIGINT" property="articleId"/>
-        <result column="article_label_id" jdbcType="BIGINT" property="articleLabelId"/>
+        <result column="label_name" jdbcType="VARCHAR" property="labelName"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, article_id, article_label_id, create_time, update_time
-    </sql>
+    id, label_name, create_time, update_time
+  </sql>
+
 
 </mapper>

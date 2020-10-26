@@ -1,4 +1,4 @@
-package com.cx.blog.entity.article;
+package com.cx.blog.entity.label;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -7,20 +7,27 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * article_label
- * @author 
+ * 标签关系实体
+ * 
+ * @author chenxin
  */
-public class ArticleLabel implements Serializable {
+public class RelLabel implements Serializable {
+
     /**
-     * 关系自增主键
+     * 文章与文章标签关系表id
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
-     * 文章标签
+     * 管理对象id
      */
-    private String articleLabel;
+    private Long relId;
+
+    /**
+     * 管理对象类型
+     */
+    private Integer relType;
 
     /**
      * 创建时间
@@ -35,31 +42,45 @@ public class ArticleLabel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 获取关系自增主键
+     * 获取文章与文章标签关系表id
      */
     public Long getId() {
         return id;
     }
 
     /**
-     * 设置关系自增主键
+     * 设置文章与文章标签关系表id
      */
     public void setId(Long id) {
         this.id = id;
     }
 
     /**
-     * 获取文章标签
+     * 获取管理对象id
      */
-    public String getArticleLabel() {
-        return articleLabel;
+    public Long getRelId() {
+        return relId;
     }
 
     /**
-     * 设置文章标签
+     * 设置管理对象id
      */
-    public void setArticleLabel(String articleLabel) {
-        this.articleLabel = articleLabel;
+    public void setRelId(Long relId) {
+        this.relId = relId;
+    }
+
+    /**
+     * 获取管理对象类型
+     */
+    public Integer getRelType() {
+        return relType;
+    }
+
+    /**
+     * 设置管理对象类型
+     */
+    public void setRelType(Integer relType) {
+        this.relType = relType;
     }
 
     /**

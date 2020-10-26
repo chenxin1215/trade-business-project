@@ -1,4 +1,4 @@
-package com.cx.blog.entity.article;
+package com.cx.blog.entity.comment;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -7,10 +7,12 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * article_comment
- * @author 
+ * 主评论
+ * 
+ * @author chenxin
  */
-public class ArticleComment implements Serializable {
+public class CommentRoot implements Serializable {
+
     /**
      * 评论id
      */
@@ -18,24 +20,24 @@ public class ArticleComment implements Serializable {
     private Long commentId;
 
     /**
-     * 评论文章id
+     * 被评论对象id
      */
-    private Long articleId;
+    private Long ownerId;
 
     /**
-     * 父级id
+     * 被评论对象类型 1-本系统 2-文章
      */
-    private Long parentId;
+    private Integer ownerType;
 
     /**
-     * 评论用户id
+     * 评论者名称
      */
-    private Long commentUserId;
+    private String fromUserName;
 
     /**
-     * 评论用户名称
+     * 评论者邮箱
      */
-    private String commentUserName;
+    private String fromUserEmail;
 
     /**
      * 评论内容
@@ -51,6 +53,11 @@ public class ArticleComment implements Serializable {
      * 评论时间
      */
     private Date commentTime;
+
+    /**
+     * 是否置顶 0-否 1-是
+     */
+    private Byte isTop;
 
     private Date createTime;
 
@@ -73,59 +80,59 @@ public class ArticleComment implements Serializable {
     }
 
     /**
-     * 获取评论文章id
+     * 获取被评论对象id
      */
-    public Long getArticleId() {
-        return articleId;
+    public Long getOwnerId() {
+        return ownerId;
     }
 
     /**
-     * 设置评论文章id
+     * 设置被评论对象id
      */
-    public void setArticleId(Long articleId) {
-        this.articleId = articleId;
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
     }
 
     /**
-     * 获取父级id
+     * 获取被评论对象类型 1-本系统 2-文章
      */
-    public Long getParentId() {
-        return parentId;
+    public Integer getOwnerType() {
+        return ownerType;
     }
 
     /**
-     * 设置父级id
+     * 设置被评论对象类型 1-本系统 2-文章
      */
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
+    public void setOwnerType(Integer ownerType) {
+        this.ownerType = ownerType;
     }
 
     /**
-     * 获取评论用户id
+     * 获取评论者名称
      */
-    public Long getCommentUserId() {
-        return commentUserId;
+    public String getFromUserName() {
+        return fromUserName;
     }
 
     /**
-     * 设置评论用户id
+     * 设置评论者名称
      */
-    public void setCommentUserId(Long commentUserId) {
-        this.commentUserId = commentUserId;
+    public void setFromUserName(String fromUserName) {
+        this.fromUserName = fromUserName;
     }
 
     /**
-     * 获取评论用户名称
+     * 获取评论者邮箱
      */
-    public String getCommentUserName() {
-        return commentUserName;
+    public String getFromUserEmail() {
+        return fromUserEmail;
     }
 
     /**
-     * 设置评论用户名称
+     * 设置评论者邮箱
      */
-    public void setCommentUserName(String commentUserName) {
-        this.commentUserName = commentUserName;
+    public void setFromUserEmail(String fromUserEmail) {
+        this.fromUserEmail = fromUserEmail;
     }
 
     /**
@@ -168,6 +175,20 @@ public class ArticleComment implements Serializable {
      */
     public void setCommentTime(Date commentTime) {
         this.commentTime = commentTime;
+    }
+
+    /**
+     * 获取是否置顶 0-否 1-是
+     */
+    public Byte getIsTop() {
+        return isTop;
+    }
+
+    /**
+     * 设置是否置顶 0-否 1-是
+     */
+    public void setIsTop(Byte isTop) {
+        this.isTop = isTop;
     }
 
     public Date getCreateTime() {

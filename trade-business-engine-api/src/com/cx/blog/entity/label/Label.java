@@ -1,4 +1,4 @@
-package com.cx.blog.entity.article;
+package com.cx.blog.entity.label;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -7,26 +7,22 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * rel_article_label
+ * 标签
  * 
- * @author
+ * @author chenxin
  */
-public class RelArticleLabel implements Serializable {
+public class Label implements Serializable {
+
     /**
-     * 文章与文章标签关系表id
+     * 标签id
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
-     * 文章id
+     * 标签名
      */
-    private Long articleId;
-
-    /**
-     * 文章标签表id
-     */
-    private Long articleLabelId;
+    private String labelName;
 
     /**
      * 创建时间
@@ -40,40 +36,32 @@ public class RelArticleLabel implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 获取标签id
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * 设置标签id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
     /**
-     * 获取文章id
+     * 获取标签名
      */
-    public Long getArticleId() {
-        return articleId;
+    public String getLabelName() {
+        return labelName;
     }
 
     /**
-     * 设置文章id
+     * 设置标签名
      */
-    public void setArticleId(Long articleId) {
-        this.articleId = articleId;
-    }
-
-    /**
-     * 获取文章标签表id
-     */
-    public Long getArticleLabelId() {
-        return articleLabelId;
-    }
-
-    /**
-     * 设置文章标签表id
-     */
-    public void setArticleLabelId(Long articleLabelId) {
-        this.articleLabelId = articleLabelId;
+    public void setLabelName(String labelName) {
+        this.labelName = labelName;
     }
 
     /**

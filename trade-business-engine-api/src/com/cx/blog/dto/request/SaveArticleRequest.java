@@ -1,9 +1,11 @@
 package com.cx.blog.dto.request;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
- *
+ * 保存文章入参
+ * 
  * @Author: chenxin
  * @Date: 2020/8/4
  */
@@ -30,11 +32,6 @@ public class SaveArticleRequest implements Serializable {
     private Long articleType;
 
     /**
-     * 阅读量
-     */
-    private Integer readCount;
-
-    /**
      * 文章状态(1:正常；0：屏蔽)
      */
     private Boolean articleStatus;
@@ -43,6 +40,11 @@ public class SaveArticleRequest implements Serializable {
      * 文章内容
      */
     private String articleContent;
+
+    /**
+     * 关联标签ids
+     */
+    private List<Long> labelIdList;
 
     public Long getArticleId() {
         return articleId;
@@ -76,14 +78,6 @@ public class SaveArticleRequest implements Serializable {
         this.articleType = articleType;
     }
 
-    public Integer getReadCount() {
-        return readCount;
-    }
-
-    public void setReadCount(Integer readCount) {
-        this.readCount = readCount;
-    }
-
     public Boolean getArticleStatus() {
         return articleStatus;
     }
@@ -98,5 +92,13 @@ public class SaveArticleRequest implements Serializable {
 
     public void setArticleContent(String articleContent) {
         this.articleContent = articleContent;
+    }
+
+    public List<Long> getLabelIdList() {
+        return labelIdList;
+    }
+
+    public void setLabelIdList(List<Long> labelIdList) {
+        this.labelIdList = labelIdList;
     }
 }

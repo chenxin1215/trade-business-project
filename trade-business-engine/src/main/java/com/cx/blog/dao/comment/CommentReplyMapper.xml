@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cx.blog.dao.comment.CommentReplyMapper">
+  <resultMap id="BaseResultMap" type="com.cx.blog.entity.comment.CommentReply">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="comment_root_id" jdbcType="BIGINT" property="commentRootId" />
+    <result column="reply_user_id" jdbcType="BIGINT" property="replyUserId" />
+    <result column="reply_user_name" jdbcType="VARCHAR" property="replyUserName" />
+    <result column="reply_user_email" jdbcType="VARCHAR" property="replyUserEmail" />
+    <result column="to_reply_id" jdbcType="BIGINT" property="toReplyId" />
+    <result column="to_reply_user_id" jdbcType="BIGINT" property="toReplyUserId" />
+    <result column="to_reply_user_name" jdbcType="VARCHAR" property="toReplyUserName" />
+    <result column="to_reply_user_email" jdbcType="VARCHAR" property="toReplyUserEmail" />
+    <result column="reply_content" jdbcType="VARCHAR" property="replyContent" />
+    <result column="reply_time" jdbcType="TIMESTAMP" property="replyTime" />
+    <result column="reply_state" jdbcType="INTEGER" property="replyState" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, comment_root_id, reply_user_id, reply_user_name, reply_user_email, to_reply_id, 
+    to_reply_user_id, to_reply_user_name, to_reply_user_email, reply_content, reply_time, 
+    reply_state, create_time, update_time
+  </sql>
+
+</mapper>
