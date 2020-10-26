@@ -1,26 +1,26 @@
 package com.cx.blog.enums;
 
 /**
- * 〈用户状态〉
+ * 〈内容类型枚举〉
  *
  * @author chenxin
- * @date 2020/6/14
+ * @date 2020/10/26
  */
-public enum ArticleStatusEnum {
+public enum ContentTypeEnum {
 
-    ENABLE(0, "禁用"), DISABLE(1, "启用");
+    SYS(1, "本系统"), ARTICLE(2, "文章");
 
     private int value;
 
     private String desc;
 
-    ArticleStatusEnum(int value, String desc) {
+    ContentTypeEnum(int value, String desc) {
         this.value = value;
         this.desc = desc;
     }
 
-    public static ArticleStatusEnum parse(int value) {
-        for (ArticleStatusEnum type : ArticleStatusEnum.values()) {
+    public static ContentTypeEnum parse(int value) {
+        for (ContentTypeEnum type : ContentTypeEnum.values()) {
             if (value == type.value) {
                 return type;
             }

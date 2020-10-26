@@ -1,4 +1,4 @@
-package com.cx.blog.dto.request;
+package com.cx.blog.dto.request.article;
 
 import java.io.Serializable;
 import java.util.List;

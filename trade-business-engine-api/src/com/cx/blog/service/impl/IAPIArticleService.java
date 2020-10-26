@@ -1,8 +1,8 @@
-package com.cx.blog.service;
+package com.cx.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.cx.blog.dto.request.QueryArticleCondition;
-import com.cx.blog.dto.request.SaveArticleRequest;
+import com.cx.blog.dto.request.article.QueryArticleCondition;
+import com.cx.blog.dto.request.article.SaveArticleRequest;
 import com.cx.blog.dto.response.ArticleDetail;
 import com.cx.blog.entity.article.Article;
 

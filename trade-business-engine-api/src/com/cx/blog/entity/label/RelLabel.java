@@ -20,6 +20,11 @@ public class RelLabel implements Serializable {
     private Long id;
 
     /**
+     * 标签id
+     */
+    private Long labelId;
+
+    /**
      * 管理对象id
      */
     private Long relId;
@@ -40,6 +45,14 @@ public class RelLabel implements Serializable {
     private Date updateTime;
 
     private static final long serialVersionUID = 1L;
+
+    public Long getLabelId() {
+        return labelId;
+    }
+
+    public void setLabelId(Long labelId) {
+        this.labelId = labelId;
+    }
 
     /**
      * 获取文章与文章标签关系表id

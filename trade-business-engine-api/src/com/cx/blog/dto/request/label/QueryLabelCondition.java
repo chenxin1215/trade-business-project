@@ -1,14 +1,14 @@
-package com.cx.blog.dto.request;
+package com.cx.blog.dto.request.label;
 
 import com.cx.blog.commom.PageParam;
 
 /**
- * <文章列表查询条件>
+ * 〈查询标签条件〉
  *
- * @Author: chenxin
- * @Date: 2020/8/4
+ * @author chenxin
+ * @date 2020/10/26
  */
-public class QueryArticleCondition extends PageParam {
+public class QueryLabelCondition extends PageParam {
 
     /**
      * 关键字

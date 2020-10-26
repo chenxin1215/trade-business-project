@@ -40,9 +40,9 @@ public class Article implements Serializable {
     private Integer readCount;
 
     /**
-     * 文章状态(1:正常；0：屏蔽)
+     * 文章状态(1:正常；2：删除)
      */
-    private Boolean articleStatus;
+    private Integer state;
 
     /**
      * 排序
@@ -136,18 +136,12 @@ public class Article implements Serializable {
         this.readCount = readCount;
     }
 
-    /**
-     * 获取文章状态(1:正常；0：屏蔽)
-     */
-    public Boolean getArticleStatus() {
-        return articleStatus;
+    public Integer getState() {
+        return state;
     }
 
-    /**
-     * 设置文章状态(1:正常；0：屏蔽)
-     */
-    public void setArticleStatus(Boolean articleStatus) {
-        this.articleStatus = articleStatus;
+    public void setState(Integer state) {
+        this.state = state;
     }
 
     /**

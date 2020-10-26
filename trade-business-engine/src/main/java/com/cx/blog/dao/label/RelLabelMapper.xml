@@ -3,13 +3,15 @@
 <mapper namespace="com.cx.blog.dao.label.RelLabelMapper">
     <resultMap id="BaseResultMap" type="com.cx.blog.entity.label.RelLabel">
         <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="label_id" jdbcType="BIGINT" property="labelId"/>
         <result column="rel_id" jdbcType="BIGINT" property="relId"/>
         <result column="rel_type" jdbcType="INTEGER" property="relType"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
+
     <sql id="Base_Column_List">
-    id, rel_id, rel_type, create_time, update_time
-  </sql>
+        id, label_id, rel_id, rel_type, create_time, update_time
+    </sql>
 
 </mapper>
