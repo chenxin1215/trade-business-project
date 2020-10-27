@@ -21,21 +21,24 @@ public class WebPageInfoService implements IAPIWebPageInfoService {
 
     @Override
     public Long add(WebPageInfo webPageInfo) {
-        return null;
+
+        webPageInfoMapper.insert(webPageInfo);
+
+        return webPageInfo.getId();
     }
 
     @Override
     public void update(WebPageInfo webPageInfo) {
-
+        webPageInfoMapper.updateById(webPageInfo);
     }
 
     @Override
     public WebPageInfo getById(Long id) {
-        return null;
+        return webPageInfoMapper.selectById(id);
     }
 
     @Override
     public List<WebPageInfo> queryAll() {
-        return null;
+        return webPageInfoMapper.selectList(null);
     }
 }
