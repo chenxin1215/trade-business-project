@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.alibaba.dubbo.config.spring.context.annotation.DubboComponentScan;
 
 @SpringBootApplication
-@DubboComponentScan("com.cx.blog.service.impl")
+@DubboComponentScan("com.cx.blog.service")
 @MapperScan("com.cx.blog.dao")
 public class TradeBusinessEngineApplication {
 

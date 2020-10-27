@@ -1,9 +1,10 @@
-package com.cx.blog.service.impl;
+package com.cx.blog.service;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.cx.blog.commom.Constants;
 import com.cx.blog.dao.label.LabelMapper;
 import com.cx.blog.dao.label.RelLabelMapper;
 import com.cx.blog.dto.request.label.QueryLabelCondition;
@@ -11,6 +12,7 @@ import com.cx.blog.dto.request.label.SaveLabelRequest;
 import com.cx.blog.dto.request.label.SaveRelLabelRequest;
 import com.cx.blog.entity.label.Label;
 import com.cx.blog.entity.label.RelLabel;
+import com.cx.blog.enums.ContentTypeEnum;
 import com.cx.utils.exception.BizRtException;
 import com.cx.utils.util.StringUtils;
 import org.slf4j.Logger;
@@ -20,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -57,7 +60,7 @@ public class LabelService implements IAPILabelService {
         Assert.notNull(labelName, "标签名不能为空！");
 
         Label oldLabel = labelMapper.selectOne(new LambdaQueryWrapper<Label>().eq(Label::getLabelName, labelName));
-        if (oldLabel != null && oldLabel.getId() != labelId) {
+        if (oldLabel != null && !oldLabel.getId().equals(labelId)) {
             LOGGER.error("标签名：{} 已存在， id：{}", labelName, oldLabel.getId());
             throw new BizRtException("标签名已存在");
         }
@@ -86,13 +89,21 @@ public class LabelService implements IAPILabelService {
     @Transactional
     public void saveRelLabel(SaveRelLabelRequest relLabelRequest) {
         LOGGER.info("### saveRelLabel start ");
-        List<Long> labelIdList = relLabelRequest.getLabelIdList();
-        if (CollectionUtils.isEmpty(labelIdList)) {
-            return;
-        }
 
         Long relId = relLabelRequest.getRelId();
         Integer relType = relLabelRequest.getRelType();
+        Assert.notNull(relType, "relType is not null");
+        List<Long> labelIdList = relLabelRequest.getLabelIdList();
+
+        // 检查标签id
+        if (CollectionUtils.isEmpty(labelIdList)) {
+            if (relType == ContentTypeEnum.ARTICLE.value()) {
+                labelIdList = new ArrayList<>();
+                labelIdList.add(Constants.DEFAULT_ARTICLE_LABEL);
+            }
+            return;
+        }
+
         for (Long labelId : labelIdList) {
             Label label = labelMapper.selectById(labelId);
             if (label == null) {

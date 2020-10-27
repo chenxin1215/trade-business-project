@@ -1,4 +1,4 @@
-package com.cx.blog.service.impl;
+package com.cx.blog.service;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -20,10 +20,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
-import org.springframework.util.CollectionUtils;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  *
@@ -38,9 +34,6 @@ public class ArticleService implements IAPIArticleService {
 
     // 文章标题最大长度
     private static final Integer ARTICLE_TITLE_MAX_LEN = 50;
-
-    // 文章默认标签
-    private static final Long DEFAULT_ARTICLE_LABEL = 6L;
 
     private static Logger LOGGER = LoggerFactory.getLogger(ArticleService.class);
 
@@ -67,14 +60,10 @@ public class ArticleService implements IAPIArticleService {
         Long articleId = addArticle.getArticleId();
 
         // 添加关联标签
-        List<Long> labelIdList = request.getLabelIdList();
-        if (CollectionUtils.isEmpty(labelIdList)) {
-            labelIdList = Arrays.asList(DEFAULT_ARTICLE_LABEL);
-        }
         SaveRelLabelRequest relLabelRequest = new SaveRelLabelRequest();
         relLabelRequest.setRelId(articleId);
         relLabelRequest.setRelType(ContentTypeEnum.ARTICLE.value());
-        relLabelRequest.setLabelIdList(labelIdList);
+        relLabelRequest.setLabelIdList(relLabelRequest.getLabelIdList());
         labelService.saveRelLabel(relLabelRequest);
 
         LOGGER.info("### addArticle end");
@@ -114,14 +103,10 @@ public class ArticleService implements IAPIArticleService {
         articleMapper.updateById(addArticle);
 
         // 更新关联标签
-        List<Long> labelIdList = request.getLabelIdList();
-        if (CollectionUtils.isEmpty(labelIdList)) {
-            labelIdList = Arrays.asList(DEFAULT_ARTICLE_LABEL);
-        }
         SaveRelLabelRequest relLabelRequest = new SaveRelLabelRequest();
         relLabelRequest.setRelId(articleId);
         relLabelRequest.setRelType(ContentTypeEnum.ARTICLE.value());
-        relLabelRequest.setLabelIdList(labelIdList);
+        relLabelRequest.setLabelIdList(request.getLabelIdList());
         labelService.saveRelLabel(relLabelRequest);
 
         LOGGER.info("### updateArticle end");

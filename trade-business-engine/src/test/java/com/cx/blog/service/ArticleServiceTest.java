@@ -1,7 +1,6 @@
-package com.cx.blog.service.impl;
+package com.cx.blog.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.cx.blog.TradeBusinessEngineApplication;
 import com.cx.blog.dto.request.article.QueryArticleCondition;
 import com.cx.blog.dto.response.ArticleDetail;
 import com.cx.blog.entity.article.Article;

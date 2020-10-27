@@ -1,4 +1,4 @@
-package com.cx.blog.service.impl;
+package com.cx.blog.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.cx.blog.dto.request.article.QueryArticleCondition;

@@ -45,9 +45,9 @@ public class CommentRoot implements Serializable {
     private String commentContent;
 
     /**
-     * 评论状态(1:正常；0：屏蔽)
+     * 评论状态(1:正常；2：删除)
      */
-    private Boolean commentStatus;
+    private Integer state;
 
     /**
      * 评论时间
@@ -149,18 +149,12 @@ public class CommentRoot implements Serializable {
         this.commentContent = commentContent;
     }
 
-    /**
-     * 获取评论状态(1:正常；0：屏蔽)
-     */
-    public Boolean getCommentStatus() {
-        return commentStatus;
+    public Integer getState() {
+        return state;
     }
 
-    /**
-     * 设置评论状态(1:正常；0：屏蔽)
-     */
-    public void setCommentStatus(Boolean commentStatus) {
-        this.commentStatus = commentStatus;
+    public void setState(Integer state) {
+        this.state = state;
     }
 
     /**

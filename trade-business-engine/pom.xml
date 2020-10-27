@@ -44,6 +44,12 @@
             <version>${cx.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.cx.storage</groupId>
+            <artifactId>cx-object-storage</artifactId>
+            <version>${cx.version}</version>
+        </dependency>
+
         <!-- dev工具 / test工具 / 配置项工具 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -109,6 +115,12 @@
         <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-yaml</artifactId>
+        </dependency>
+
+        <!-- Redis -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
     </dependencies>

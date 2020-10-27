@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cx.blog.dao.comment.CommentRootMapper">
-  <resultMap id="BaseResultMap" type="com.cx.blog.entity.comment.CommentRoot">
-    <id column="comment_id" jdbcType="BIGINT" property="commentId" />
-    <result column="owner_id" jdbcType="BIGINT" property="ownerId" />
-    <result column="owner_type" jdbcType="INTEGER" property="ownerType" />
-    <result column="from_user_name" jdbcType="VARCHAR" property="fromUserName" />
-    <result column="from_user_email" jdbcType="VARCHAR" property="fromUserEmail" />
-    <result column="comment_content" jdbcType="VARCHAR" property="commentContent" />
-    <result column="comment_status" jdbcType="BIT" property="commentStatus" />
-    <result column="comment_time" jdbcType="TIMESTAMP" property="commentTime" />
-    <result column="is_top" jdbcType="TINYINT" property="isTop" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-  </resultMap>
+    <resultMap id="BaseResultMap" type="com.cx.blog.entity.comment.CommentRoot">
+        <id column="comment_id" jdbcType="BIGINT" property="commentId"/>
+        <result column="owner_id" jdbcType="BIGINT" property="ownerId"/>
+        <result column="owner_type" jdbcType="INTEGER" property="ownerType"/>
+        <result column="from_user_name" jdbcType="VARCHAR" property="fromUserName"/>
+        <result column="from_user_email" jdbcType="VARCHAR" property="fromUserEmail"/>
+        <result column="comment_content" jdbcType="VARCHAR" property="commentContent"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="comment_time" jdbcType="TIMESTAMP" property="commentTime"/>
+        <result column="is_top" jdbcType="TINYINT" property="isTop"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
 
-  <sql id="Base_Column_List">
+    <sql id="Base_Column_List">
     comment_id, owner_id, owner_type, from_user_name, from_user_email, comment_content, 
-    comment_status, comment_time, is_top, create_time, update_time
+    state, comment_time, is_top, create_time, update_time
   </sql>
 
 </mapper>
