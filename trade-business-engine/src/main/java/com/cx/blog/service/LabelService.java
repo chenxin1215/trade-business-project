@@ -23,6 +23,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 〈〉
@@ -113,6 +114,19 @@ public class LabelService implements IAPILabelService {
             relLabelMapper.insert(relLabel);
         }
         LOGGER.info("### saveRelLabel end ");
+    }
+
+    @Override
+    public List<Label> queryLabelListByRel(Integer relType, Long relId) {
+        List<RelLabel> relLabelList = relLabelMapper.selectList(
+            new LambdaQueryWrapper<RelLabel>().eq(RelLabel::getRelType, relType).eq(RelLabel::getRelId, relId));
+        if (CollectionUtils.isEmpty(relLabelList)) {
+            return new ArrayList<>();
+        }
+
+        List<Long> labelIdList = relLabelList.stream().map(RelLabel::getLabelId).collect(Collectors.toList());
+
+        return labelMapper.selectBatchIds(labelIdList);
     }
 
     private LambdaQueryWrapper<Label> getLabelLambdaQueryWrapper(QueryLabelCondition condition) {

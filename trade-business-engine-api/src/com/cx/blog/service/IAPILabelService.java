@@ -6,6 +6,8 @@ import com.cx.blog.dto.request.label.SaveLabelRequest;
 import com.cx.blog.dto.request.label.SaveRelLabelRequest;
 import com.cx.blog.entity.label.Label;
 
+import java.util.List;
+
 /**
  * 〈标签接口〉
  *
@@ -53,5 +55,14 @@ public interface IAPILabelService {
      * @Date: 2020/10/26
      */
     void saveRelLabel(SaveRelLabelRequest relLabelRequest);
+
+    /**
+     * @Description: 获取标签
+     *
+     * @Author: chenxin
+     * @Param: [relType, relId]
+     * @Date: 2020/10/31
+     */
+    List<Label> queryLabelListByRel(Integer relType, Long relId);
 
 }
