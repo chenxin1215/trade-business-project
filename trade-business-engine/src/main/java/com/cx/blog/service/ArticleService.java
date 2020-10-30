@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -146,7 +147,10 @@ public class ArticleService implements IAPIArticleService {
 
         List<Long> articleIdList = articleMapper.pageQueryArticleIdList(page, condition);
 
-        List<Article> articleList = articleMapper.queryListByIds(articleIdList);
+        List<Article> articleList = new ArrayList<>();
+        for (Long id : articleIdList) {
+            articleList.add(articleMapper.selectById(id));
+        }
         page.setRecords(articleList);
 
         return page;

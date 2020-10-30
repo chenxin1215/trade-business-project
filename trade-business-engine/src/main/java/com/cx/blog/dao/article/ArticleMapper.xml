@@ -9,16 +9,13 @@
         <result column="read_count" jdbcType="INTEGER" property="readCount"/>
         <result column="state" jdbcType="INTEGER" property="state"/>
         <result column="sort" jdbcType="INTEGER" property="sort"/>
+        <result column="article_content" jdbcType="VARCHAR" property="articleContent"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
 
-    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.cx.blog.entity.article.Article">
-        <result column="article_content" jdbcType="LONGVARCHAR" property="articleContent"/>
-    </resultMap>
-
     <sql id="Base_Column_List">
-        article_id, article_title, article_title_image, article_type, read_count, state,
+        article_id, article_title, article_title_image, article_type, read_count, state,article_content,
         sort, create_time, update_time
     </sql>
 
