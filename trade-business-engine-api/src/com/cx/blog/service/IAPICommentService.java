@@ -8,6 +8,9 @@ import com.cx.blog.dto.request.comment.QueryCommentRootCondition;
 import com.cx.blog.entity.comment.CommentReply;
 import com.cx.blog.entity.comment.CommentRoot;
 
+import java.util.List;
+import java.util.Map;
+
 public interface IAPICommentService {
 
     /**
@@ -58,10 +61,14 @@ public interface IAPICommentService {
     /**
      * 功能描述: 查询评论回复列表
      *
-     * @Author: chenxin 
+     * @Author: chenxin
      * @Param: [condition]
      * @Date: 2020/10/27
      */
     IPage<CommentReply> queryCommentReplyList(QueryCommentReplyCondition condition);
+
+    int getCommentNum(Integer ownerType, Long ownerId);
+
+    Map<Long, Integer> getCommentNumMap(Integer ownerType, List<Long> ownerIds);
 
 }

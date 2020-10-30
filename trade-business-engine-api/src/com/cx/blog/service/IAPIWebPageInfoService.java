@@ -34,6 +34,16 @@ public interface IAPIWebPageInfoService {
     WebPageInfo getById(Long id);
 
     /**
+     * 功能描述: 获取当前启用的页面配置
+     *
+     * @Author: chenxin
+     * @Param: [id]
+     * @Date: 2020/10/27
+     */
+    WebPageInfo getEnablePageInfo();
+
+
+    /**
      * 功能描述: 获取所有页面配置
      *
      * @Author: chenxin

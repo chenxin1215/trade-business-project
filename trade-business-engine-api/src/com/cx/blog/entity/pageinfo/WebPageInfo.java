@@ -64,6 +64,11 @@ public class WebPageInfo implements Serializable {
     private String address;
 
     /**
+     * 状态 0-禁用 1-启用
+     */
+    private Integer state;
+
+    /**
      * 创建时间
      */
     private Date createTime;
@@ -241,5 +246,13 @@ public class WebPageInfo implements Serializable {
      */
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
     }
 }

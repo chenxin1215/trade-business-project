@@ -12,7 +12,6 @@ import com.cx.blog.dto.request.label.SaveLabelRequest;
 import com.cx.blog.dto.request.label.SaveRelLabelRequest;
 import com.cx.blog.entity.label.Label;
 import com.cx.blog.entity.label.RelLabel;
-import com.cx.blog.enums.ContentTypeEnum;
 import com.cx.utils.exception.BizRtException;
 import com.cx.utils.util.StringUtils;
 import org.slf4j.Logger;
@@ -97,11 +96,8 @@ public class LabelService implements IAPILabelService {
 
         // 检查标签id
         if (CollectionUtils.isEmpty(labelIdList)) {
-            if (relType == ContentTypeEnum.ARTICLE.value()) {
-                labelIdList = new ArrayList<>();
-                labelIdList.add(Constants.DEFAULT_ARTICLE_LABEL);
-            }
-            return;
+            labelIdList = new ArrayList<>();
+            labelIdList.add(Constants.DEFAULT_ARTICLE_LABEL);
         }
 
         for (Long labelId : labelIdList) {

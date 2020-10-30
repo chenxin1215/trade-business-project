@@ -12,13 +12,14 @@
         <result column="QQ" jdbcType="VARCHAR" property="qq"/>
         <result column="email" jdbcType="VARCHAR" property="email"/>
         <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="state" jdbcType="INTEGER" property="address"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-    id, nick_name, motto, index_info, bottom_motto, person_info, person_skills, QQ, email, 
-    address, create_time, update_time
-  </sql>
+        id, nick_name, motto, index_info, bottom_motto, person_info, person_skills, QQ, email,
+        address,state, create_time, update_time
+    </sql>
 
 </mapper>

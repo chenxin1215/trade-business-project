@@ -57,7 +57,7 @@ public class CommentRoot implements Serializable {
     /**
      * 是否置顶 0-否 1-是
      */
-    private Byte isTop;
+    private Boolean isTop;
 
     private Date createTime;
 
@@ -171,18 +171,12 @@ public class CommentRoot implements Serializable {
         this.commentTime = commentTime;
     }
 
-    /**
-     * 获取是否置顶 0-否 1-是
-     */
-    public Byte getIsTop() {
+    public Boolean getTop() {
         return isTop;
     }
 
-    /**
-     * 设置是否置顶 0-否 1-是
-     */
-    public void setIsTop(Byte isTop) {
-        this.isTop = isTop;
+    public void setTop(Boolean top) {
+        isTop = top;
     }
 
     public Date getCreateTime() {

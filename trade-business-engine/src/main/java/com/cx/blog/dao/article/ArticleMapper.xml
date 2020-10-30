@@ -18,9 +18,66 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-    article_id, article_title, article_title_image, article_type, read_count, state,
-    sort, create_time, update_time
-  </sql>
+        article_id, article_title, article_title_image, article_type, read_count, state,
+        sort, create_time, update_time
+    </sql>
+
+    <select id="queryListByIds" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from article
+        <where>
+            state = 1
+            <if test="idList != null and idList.size > 0">
+                and article_id in
+                <foreach collection="idList" separator="," open="(" close=")" item="item">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="pageQueryArticleIdList" resultType="java.lang.Long">
+        SELECT DISTINCT(a.article_id)
+        FROM article a
+        LEFT JOIN(
+            SELECT rel_id,label_id,label.label_name
+            FROM rel_label
+            JOIN label on rel_type = 2 and label_id = label.id
+        ) rl on rl.rel_id = a.article_id
+        LEFT JOIN(
+            select croot.owner_id croot_id, COUNT(croot.comment_id)+COUNT(creply.id) comment_num
+            from comment_root croot
+            left join comment_reply creply on croot.comment_id = creply.comment_root_id and creply.reply_state = 1
+            where croot.owner_type = 2 and croot.state = 1
+            GROUP BY croot.owner_id
+        ) croot on croot.croot_id = a.article_id
+        <where>
+            a.state = 1
+            <if test="condition.keyword != null and condition.keyword != ''">
+                and (
+                  a.article_title like concat('%',#{condition.keyword},'%')
+                  or rl.label_name like concat('%',#{condition.keyword},'%')
+                )
+            </if>
+            <if test="condition.labelIdList != null and condition.labelIdList.size > 0">
+                and rl.label_id IN
+                <foreach collection="condition.labelIdList" item="item" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+        <if test="condition.sortType == null || condition.sortType == 1">
+            ORDER BY a.sort desc, croot.comment_num desc, a.read_count desc, a.create_time desc
+        </if>
+        <if test="condition.sortType == 2">
+            ORDER BY a.create_time desc
+        </if>
+        <if test="condition.sortType == 3">
+            ORDER BY croot.comment_num desc, a.sort desc, a.read_count desc, a.create_time desc
+        </if>
+
+    </select>
 
 
 </mapper>

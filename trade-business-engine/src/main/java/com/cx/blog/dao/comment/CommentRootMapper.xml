@@ -10,7 +10,7 @@
         <result column="comment_content" jdbcType="VARCHAR" property="commentContent"/>
         <result column="state" jdbcType="INTEGER" property="state"/>
         <result column="comment_time" jdbcType="TIMESTAMP" property="commentTime"/>
-        <result column="is_top" jdbcType="TINYINT" property="isTop"/>
+        <result column="is_top" jdbcType="BOOLEAN" property="isTop"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>

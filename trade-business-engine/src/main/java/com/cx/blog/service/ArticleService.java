@@ -1,7 +1,6 @@
 package com.cx.blog.service;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cx.blog.dao.article.ArticleMapper;
@@ -21,8 +20,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import java.util.List;
+
 /**
- *
  * @Author: chenxin
  * @Date: 2020/8/4
  */
@@ -42,6 +42,9 @@ public class ArticleService implements IAPIArticleService {
 
     @Autowired
     private IAPILabelService labelService;
+
+    @Autowired
+    private IAPICommentService commentService;
 
     @Override
     @Transactional
@@ -127,7 +130,8 @@ public class ArticleService implements IAPIArticleService {
         ArticleDetail articleDetail = new ArticleDetail();
         BeanUtils.copyProperties(article, articleDetail);
 
-        // TODO
+        int commentNum = commentService.getCommentNum(ContentTypeEnum.ARTICLE.value(), id);
+        articleDetail.setCommentNum(commentNum);
 
         // 浏览数+1
         article.setReadCount(article.getReadCount() + 1);
@@ -140,20 +144,12 @@ public class ArticleService implements IAPIArticleService {
     public IPage<Article> pageQueryArticleInfoList(QueryArticleCondition condition) {
         IPage<Article> page = new Page<>(condition.getPage(), condition.getPageSize());
 
-        LambdaQueryWrapper<Article> queryWrapper = getArticleLambdaQueryWrapper(condition);
+        List<Long> articleIdList = articleMapper.pageQueryArticleIdList(page, condition);
 
-        IPage<Article> articleIPage = articleMapper.selectPage(page, queryWrapper);
-        articleIPage.setTotal(page.getTotal());
+        List<Article> articleList = articleMapper.queryListByIds(articleIdList);
+        page.setRecords(articleList);
 
-        return articleIPage;
-    }
-
-    private LambdaQueryWrapper<Article> getArticleLambdaQueryWrapper(QueryArticleCondition condition) {
-        LambdaQueryWrapper<Article> queryWrapper = new LambdaQueryWrapper<>();
-        if (StringUtils.isNotBlank(condition.getKeyword())) {
-            queryWrapper.like(Article::getArticleTitle, "%" + condition.getKeyword() + "%");
-        }
-        return queryWrapper;
+        return page;
     }
 
 }

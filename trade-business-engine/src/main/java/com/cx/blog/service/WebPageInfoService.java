@@ -1,8 +1,10 @@
 package com.cx.blog.service;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.cx.blog.dao.pageinfo.WebPageInfoMapper;
 import com.cx.blog.entity.pageinfo.WebPageInfo;
+import com.cx.blog.enums.BaseStateEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -35,6 +37,12 @@ public class WebPageInfoService implements IAPIWebPageInfoService {
     @Override
     public WebPageInfo getById(Long id) {
         return webPageInfoMapper.selectById(id);
+    }
+
+    @Override
+    public WebPageInfo getEnablePageInfo() {
+        return webPageInfoMapper
+            .selectOne(new LambdaQueryWrapper<WebPageInfo>().eq(WebPageInfo::getState, BaseStateEnum.ENABLE.value()));
     }
 
     @Override

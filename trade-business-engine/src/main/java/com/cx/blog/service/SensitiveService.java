@@ -1,7 +1,5 @@
 package com.cx.blog.service;
 
-import com.alibaba.dubbo.config.annotation.Reference;
-import com.cx.storage.aliyun.service.IAPIGreenService;
 import com.cx.utils.util.StringUtils;
 import org.springframework.stereotype.Component;
 
@@ -16,8 +14,8 @@ import java.util.Locale;
 @Component
 public class SensitiveService {
 
-    @Reference
-    private IAPIGreenService greenService;
+    // @Reference
+    // private IAPIGreenService greenService;
 
     public boolean isSensitiveStr(String input) {
         if (StringUtils.isBlank(input)) {
@@ -25,7 +23,8 @@ public class SensitiveService {
         }
 
         String upperCase = input.toUpperCase(Locale.ENGLISH);
-        return greenService.isSensitiveWords(upperCase);
+        // return greenService.isSensitiveWords(upperCase);
+        return true;
     }
 
 }

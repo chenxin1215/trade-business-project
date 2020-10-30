@@ -21,6 +21,11 @@ public class AddCommentRootRequest implements Serializable {
     private Integer ownerType;
 
     /**
+     * 评论者id
+     */
+    private Long formUserId;
+
+    /**
      * 评论者名称
      */
     private String fromUserName;
@@ -34,6 +39,14 @@ public class AddCommentRootRequest implements Serializable {
      * 评论内容
      */
     private String commentContent;
+
+    public Long getFormUserId() {
+        return formUserId;
+    }
+
+    public void setFormUserId(Long formUserId) {
+        this.formUserId = formUserId;
+    }
 
     public Long getOwnerId() {
         return ownerId;

@@ -24,8 +24,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.util.CollectionUtils;
 
-import java.util.Date;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * <评论接口>
@@ -55,6 +57,17 @@ public class CommentService implements IAPICommentService {
 
     @Override
     public Long addCommentRoot(AddCommentRootRequest rootRequest) {
+        Long formUserId = rootRequest.getFormUserId();
+        if (formUserId != null) {
+            UserBaseInfo userBaseInfo = userBaseInfoService.getUserBaseInfoById(formUserId);
+            if (userBaseInfo == null || userBaseInfo.getUserStatus() == BaseStateEnum.DISABLE.value()) {
+                LOGGER.error("操作失败！评论者在系统不存在或已被禁用！formUserId:{} ", formUserId);
+                throw new BizRtException("操作失败！评论者在系统不存在或已被禁用！");
+            }
+            rootRequest.setFromUserName(userBaseInfo.getNickname());
+            rootRequest.setFromUserEmail("管理员");
+        }
+
         String fromUserName = rootRequest.getFromUserName();
         String commentContent = rootRequest.getCommentContent();
 
@@ -71,6 +84,16 @@ public class CommentService implements IAPICommentService {
 
     @Override
     public Long addCommentReply(AddCommentReplyRequest replyRequest) {
+        Long replyUserId = replyRequest.getReplyUserId();
+        if (replyUserId != null) {
+            UserBaseInfo userBaseInfo = userBaseInfoService.getUserBaseInfoById(replyUserId);
+            if (userBaseInfo == null || userBaseInfo.getUserStatus() == BaseStateEnum.DISABLE.value()) {
+                LOGGER.error("操作失败！评论者在系统不存在或已被禁用！formUserId:{} ", replyUserId);
+                throw new BizRtException("操作失败！评论者在系统不存在或已被禁用！");
+            }
+            replyRequest.setReplyUserName(userBaseInfo.getNickname());
+            replyRequest.setReplyUserEmail("管理员");
+        }
         String replyUserName = replyRequest.getReplyUserName();
         String replyContent = replyRequest.getReplyContent();
 
@@ -131,24 +154,82 @@ public class CommentService implements IAPICommentService {
     public IPage<CommentRoot> queryCommentRootList(QueryCommentRootCondition condition) {
         LambdaQueryWrapper<CommentRoot> queryWrapper = new LambdaQueryWrapper<>();
 
-        queryWrapper.eq(CommentRoot::getOwnerId, condition.getOwnerId());
+        IPage<CommentRoot> page = new Page<>(condition.getPage(), condition.getPageSize());
+        if (condition.getOwnerId() != null) {
+            queryWrapper.eq(CommentRoot::getOwnerId, condition.getOwnerId());
+        }
         queryWrapper.eq(CommentRoot::getOwnerType, condition.getOwnerType());
         queryWrapper.eq(CommentRoot::getState, BaseStateEnum.ENABLE.value());
         queryWrapper.orderByDesc(CommentRoot::getCreateTime);
 
-        return commentRootMapper.selectPage(new Page<>(condition.getPage(), condition.getPageSize()), queryWrapper);
+        return commentRootMapper.selectPage(page, queryWrapper);
     }
 
     @Override
     public IPage<CommentReply> queryCommentReplyList(QueryCommentReplyCondition condition) {
         LambdaQueryWrapper<CommentReply> queryWrapper = new LambdaQueryWrapper<>();
 
+        IPage<CommentReply> page = new Page<>(condition.getPage(), condition.getPageSize());
         queryWrapper.eq(CommentReply::getCommentRootId, condition.getCommentRootId());
-        queryWrapper.eq(CommentReply::getReplyUserId, condition.getReplyUserId());
+        // queryWrapper.eq(CommentReply::getReplyUserId, condition.getReplyUserId());
         queryWrapper.eq(CommentReply::getReplyState, BaseStateEnum.ENABLE.value());
         queryWrapper.orderByDesc(CommentReply::getCreateTime);
 
-        return commentReplyMapper.selectPage(new Page<>(condition.getPage(), condition.getPageSize()), queryWrapper);
+        return commentReplyMapper.selectPage(page, queryWrapper);
+    }
+
+    @Override
+    public int getCommentNum(Integer ownerType, Long ownerId) {
+        int commentNum = 0;
+
+        List<CommentRoot> commentRootList = commentRootMapper
+            .selectList(new LambdaQueryWrapper<CommentRoot>().eq(CommentRoot::getState, BaseStateEnum.ENABLE.value())
+                .eq(CommentRoot::getOwnerType, ownerType).eq(CommentRoot::getOwnerId, ownerId));
+
+        if (!CollectionUtils.isEmpty(commentRootList)) {
+            commentNum += commentRootList.size();
+            for (CommentRoot commentRoot : commentRootList) {
+                Integer count = commentReplyMapper.selectCount(
+                    new LambdaQueryWrapper<CommentReply>().eq(CommentReply::getReplyState, BaseStateEnum.ENABLE.value())
+                        .eq(CommentReply::getCommentRootId, commentRoot.getCommentId()));
+                commentNum += Optional.ofNullable(count).orElse(0);
+            }
+        }
+
+        return commentNum;
+    }
+
+    @Override
+    public Map<Long, Integer> getCommentNumMap(Integer ownerType, List<Long> ownerIds) {
+        Map<Long, Integer> map = new HashMap<>();
+
+        List<CommentRoot> commentRootList = commentRootMapper
+            .selectList(new LambdaQueryWrapper<CommentRoot>().eq(CommentRoot::getState, BaseStateEnum.ENABLE.value())
+                .eq(CommentRoot::getOwnerType, ownerType).in(CommentRoot::getOwnerId, ownerIds));
+
+        if (!CollectionUtils.isEmpty(commentRootList)) {
+            // 根据对象id分组
+            Map<Long, List<CommentRoot>> listMap =
+                commentRootList.stream().collect(Collectors.groupingBy(CommentRoot::getOwnerId));
+
+            for (Map.Entry<Long, List<CommentRoot>> entry : listMap.entrySet()) {
+                Long key = entry.getKey();
+                List<CommentRoot> value = entry.getValue();
+
+                // 获取每个对象的总评论数
+                int commentNum = value.size();
+                for (CommentRoot commentRoot : value) {
+                    Integer count = commentReplyMapper.selectCount(new LambdaQueryWrapper<CommentReply>()
+                        .eq(CommentReply::getReplyState, BaseStateEnum.ENABLE.value())
+                        .eq(CommentReply::getCommentRootId, commentRoot.getCommentId()));
+                    commentNum += Optional.ofNullable(count).orElse(0);
+                }
+
+                map.put(key, commentNum);
+            }
+        }
+
+        return map;
     }
 
     private void checkDeleteRequest(Long id, Long operationUserId) {
