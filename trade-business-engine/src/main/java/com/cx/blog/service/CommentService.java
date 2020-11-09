@@ -179,8 +179,8 @@ public class CommentService implements IAPICommentService {
     }
 
     @Override
-    public int getCommentNum(Integer ownerType, Long ownerId) {
-        int commentNum = 0;
+    public Integer getCommentNum(Integer ownerType, Long ownerId) {
+        Integer commentNum = 0;
 
         List<CommentRoot> commentRootList = commentRootMapper
             .selectList(new LambdaQueryWrapper<CommentRoot>().eq(CommentRoot::getState, BaseStateEnum.ENABLE.value())

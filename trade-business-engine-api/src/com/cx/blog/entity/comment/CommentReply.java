@@ -30,6 +30,11 @@ public class CommentReply implements Serializable {
     private Long replyUserId;
 
     /**
+     * 回复人头像
+     */
+    private String replyUserHeadImg;
+
+    /**
      * 回复人名称
      */
     private String replyUserName;
@@ -49,12 +54,10 @@ public class CommentReply implements Serializable {
      */
     private Long toReplyUserId;
 
-    private String toReplyUserName;
-
     /**
-     * 被回复人邮箱
+     * 被回复人姓名
      */
-    private String toReplyUserEmail;
+    private String toReplyUserName;
 
     /**
      * 回复内容
@@ -190,20 +193,6 @@ public class CommentReply implements Serializable {
     }
 
     /**
-     * 获取被回复人邮箱
-     */
-    public String getToReplyUserEmail() {
-        return toReplyUserEmail;
-    }
-
-    /**
-     * 设置被回复人邮箱
-     */
-    public void setToReplyUserEmail(String toReplyUserEmail) {
-        this.toReplyUserEmail = toReplyUserEmail;
-    }
-
-    /**
      * 获取回复内容
      */
     public String getReplyContent() {
@@ -271,5 +260,13 @@ public class CommentReply implements Serializable {
      */
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getReplyUserHeadImg() {
+        return replyUserHeadImg;
+    }
+
+    public void setReplyUserHeadImg(String replyUserHeadImg) {
+        this.replyUserHeadImg = replyUserHeadImg;
     }
 }

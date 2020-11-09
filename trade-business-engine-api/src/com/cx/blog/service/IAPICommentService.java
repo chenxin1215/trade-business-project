@@ -67,7 +67,7 @@ public interface IAPICommentService {
      */
     IPage<CommentReply> queryCommentReplyList(QueryCommentReplyCondition condition);
 
-    int getCommentNum(Integer ownerType, Long ownerId);
+    Integer getCommentNum(Integer ownerType, Long ownerId);
 
     Map<Long, Integer> getCommentNumMap(Integer ownerType, List<Long> ownerIds);
 

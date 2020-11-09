@@ -30,6 +30,11 @@ public class CommentRoot implements Serializable {
     private Integer ownerType;
 
     /**
+     * 评论者头像
+     */
+    private String fromUserHeadImg;
+
+    /**
      * 评论者名称
      */
     private String fromUserName;
@@ -57,7 +62,7 @@ public class CommentRoot implements Serializable {
     /**
      * 是否置顶 0-否 1-是
      */
-    private Boolean isTop;
+    private Boolean topSign;
 
     private Date createTime;
 
@@ -171,12 +176,12 @@ public class CommentRoot implements Serializable {
         this.commentTime = commentTime;
     }
 
-    public Boolean getTop() {
-        return isTop;
+    public Boolean getTopSign() {
+        return topSign;
     }
 
-    public void setTop(Boolean top) {
-        isTop = top;
+    public void setTopSign(Boolean topSign) {
+        this.topSign = topSign;
     }
 
     public Date getCreateTime() {
@@ -193,5 +198,13 @@ public class CommentRoot implements Serializable {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getFromUserHeadImg() {
+        return fromUserHeadImg;
+    }
+
+    public void setFromUserHeadImg(String fromUserHeadImg) {
+        this.fromUserHeadImg = fromUserHeadImg;
     }
 }

@@ -21,6 +21,11 @@ public class AddCommentReplyRequest implements Serializable {
     private Long replyUserId;
 
     /**
+     * 回复者头像
+     */
+    private String replyUserHeadImg;
+
+    /**
      * 回复人名称
      */
     private String replyUserName;
@@ -125,5 +130,13 @@ public class AddCommentReplyRequest implements Serializable {
 
     public void setReplyContent(String replyContent) {
         this.replyContent = replyContent;
+    }
+
+    public String getReplyUserHeadImg() {
+        return replyUserHeadImg;
+    }
+
+    public void setReplyUserHeadImg(String replyUserHeadImg) {
+        this.replyUserHeadImg = replyUserHeadImg;
     }
 }

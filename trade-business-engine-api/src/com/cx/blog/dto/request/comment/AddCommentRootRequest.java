@@ -26,6 +26,11 @@ public class AddCommentRootRequest implements Serializable {
     private Long formUserId;
 
     /**
+     * 评论者头像
+     */
+    private String fromUserHeadImg;
+
+    /**
      * 评论者名称
      */
     private String fromUserName;
@@ -86,5 +91,13 @@ public class AddCommentRootRequest implements Serializable {
 
     public void setCommentContent(String commentContent) {
         this.commentContent = commentContent;
+    }
+
+    public String getFromUserHeadImg() {
+        return fromUserHeadImg;
+    }
+
+    public void setFromUserHeadImg(String fromUserHeadImg) {
+        this.fromUserHeadImg = fromUserHeadImg;
     }
 }
