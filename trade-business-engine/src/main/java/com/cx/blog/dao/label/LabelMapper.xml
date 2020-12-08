@@ -9,8 +9,26 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-    id, label_name, create_time, update_time
-  </sql>
+        id, label_name, create_time, update_time
+    </sql>
 
+
+    <select id="queryLabelList" resultType="com.cx.blog.dto.response.LabelInfo">
+        select label.*, t.article_num
+        from label
+        left join (
+            select
+            label_id, COUNT(1) article_num
+            from rel_label
+            where rel_type = 2
+            GROUP BY label_id
+        ) t on t.label_id = id
+        <where>
+            <if test="condition.keyword != null and condition.keyword != ''">
+                and label.label_name like concat('%',#{condition.keyword},'%')
+            </if>
+        </where>
+        ORDER BY t.article_num desc
+    </select>
 
 </mapper>

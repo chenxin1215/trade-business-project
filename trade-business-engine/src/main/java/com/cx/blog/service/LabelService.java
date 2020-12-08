@@ -10,6 +10,7 @@ import com.cx.blog.dao.label.RelLabelMapper;
 import com.cx.blog.dto.request.label.QueryLabelCondition;
 import com.cx.blog.dto.request.label.SaveLabelRequest;
 import com.cx.blog.dto.request.label.SaveRelLabelRequest;
+import com.cx.blog.dto.response.LabelInfo;
 import com.cx.blog.entity.label.Label;
 import com.cx.blog.entity.label.RelLabel;
 import com.cx.utils.exception.BizRtException;
@@ -77,12 +78,15 @@ public class LabelService implements IAPILabelService {
     }
 
     @Override
-    public IPage<Label> queryLabelList(QueryLabelCondition condition) {
+    public IPage<LabelInfo> queryLabelList(QueryLabelCondition condition) {
         IPage<Label> page = new Page<>(condition.getPage(), condition.getPageSize());
 
-        LambdaQueryWrapper<Label> labelLambdaQueryWrapper = getLabelLambdaQueryWrapper(condition);
+        IPage<LabelInfo> result = new Page<>();
+        List<LabelInfo> labelInfoList = labelMapper.queryLabelList(page, condition);
+        result.setTotal(page.getTotal());
+        result.setRecords(labelInfoList);
 
-        return labelMapper.selectPage(page, labelLambdaQueryWrapper);
+        return result;
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.cx.blog.dto.request.label.QueryLabelCondition;
 import com.cx.blog.dto.request.label.SaveLabelRequest;
 import com.cx.blog.dto.request.label.SaveRelLabelRequest;
+import com.cx.blog.dto.response.LabelInfo;
 import com.cx.blog.entity.label.Label;
 
 import java.util.List;
@@ -46,7 +47,7 @@ public interface IAPILabelService {
      * @Author: chenxin
      * @Date: 2020/10/26
      */
-    IPage<Label> queryLabelList(QueryLabelCondition condition);
+    IPage<LabelInfo> queryLabelList(QueryLabelCondition condition);
 
     /**
      * @Description: 更新标签关联关系
